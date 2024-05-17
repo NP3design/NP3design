@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kan du gissa rätt?</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Gissa numret mellan 1 och 50</h1>
+    <h3>Obs! Efter 5 försök, slutar spelet.</h3>
+    <input type="text" id="guessField">
+    <button onclick=" checkGuess()">Gissa</button>
+    <p id="message"></p>
+
+    <Script>
+        const correctNumber = Math.floor(Math.random() * 50) + 1;
+        let numberOfGuesses = 5;
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById("guessField").value);
+            const messageElement = document.getElementById("message");
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 50) {
+                messageElement.textContent = "Gissa ett nummer mellan 1 och 50.";
+                return;
+            }
+            if (userGuess === correctNumber) {
+                messageElement.textContent = `Grattis! Du gissade rätt nummer (${correctNumber}) på ${numberOfGuesses} försök.`;
+            } else if (userGuess < correctNumber) {
+                numberOfGuesses--;
+                messageElement.textContent = "För lågt!, prova igen. Du har " + numberOfGuesses + " kvar";
+            } else if (userGuess > correctNumber){
+                messageElement.textContent = "För högt, prova igen.Du har " + numberOfGuesses + " kvar";
+            }
+            if (numberOfGuesses === 0) {
+                messageElement.textContent = "Game over. Det rätta numret var " + correctNumber + ".";
+                document.getElementById("guessField").disabled = true; 
+            }
+
+                 document.getElementById("guessField").value = "";
+        }
+    </Script>
+</body>
+
+</html>
